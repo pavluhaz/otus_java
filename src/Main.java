@@ -3,6 +3,7 @@ import data.AnimalTypeData;
 import data.ColorData;
 import data.CommandsData;
 import factory.AnimalFactory;
+import tools.NumbersTools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,18 +61,39 @@ public class Main {
 
                         if (name == null || name.trim().isEmpty()) {
                             System.out.println("Имя не может быть пустым. Повторите ввод.");
-                        } else {
-                            System.out.println("Имя успешно установлено.");
-                            break;
+                            continue;
                         }
+
+                        // Проверка на наличие только букв
+                        String regex = "^[а-яА-ЯёЁa-zA-Z]+$"; // русские + английские буквы
+                        if (!name.matches(regex)) {
+                            System.out.println("Имя должно содержать только буквы. Повторите ввод.");
+                            continue;
+                        }
+
+                        System.out.println("Имя успешно установлено.");
+                        break;
                     }
 
                     // Возраст
                     int age;
                     while (true) {
+                        System.out.print("Введите возраст животного: ");
+                        String input = scanner.nextLine();
+
+                        if (input.isEmpty()) {
+                            System.out.println("Пустой ввод. Повторите.");
+                            continue;
+                        }
+
+                        NumbersTools numberTools = new NumbersTools();
+                        if (!numberTools.isNumber(input)) {
+                            System.out.println("Некорректный возраст. Введите число от 1 до 99.");
+                            continue;
+                        }
+
                         try {
-                            System.out.print("Введите возраст животного: ");
-                            age = Integer.parseInt(scanner.nextLine());
+                            age = Integer.parseInt(input);
                             if (age < 0) {
                                 System.out.println("Возраст не может быть отрицательным.");
                                 continue;
@@ -79,16 +101,28 @@ public class Main {
                             System.out.println("Возраст успешно установлен.");
                             break;
                         } catch (NumberFormatException e) {
-                            System.out.println("Некорректный возраст. Введите число.");
+                            System.out.println("Ошибка при преобразовании числа.");
                         }
                     }
-
                     // Вес
                     int weight;
                     while (true) {
+                        System.out.print("Введите вес животного (кг): ");
+                        String input = scanner.nextLine();
+
+                        if (input.isEmpty()) {
+                            System.out.println("Пустой ввод. Повторите.");
+                            continue;
+                        }
+
+                        NumbersTools numberTools = new NumbersTools();
+                        if (!numberTools.isNumber(input)) {
+                            System.out.println("Некорректный вес. Введите число от 1 до 99.");
+                            continue;
+                        }
+
                         try {
-                            System.out.print("Введите вес животного (кг): ");
-                            weight = Integer.parseInt(scanner.nextLine());
+                            weight = Integer.parseInt(input);
                             if (weight < 0) {
                                 System.out.println("Вес не может быть отрицательным.");
                                 continue;
@@ -96,10 +130,9 @@ public class Main {
                             System.out.println("Вес успешно установлен.");
                             break;
                         } catch (NumberFormatException e) {
-                            System.out.println("Некорректный вес. Введите число.");
+                            System.out.println("Ошибка при преобразовании числа.");
                         }
                     }
-
                     // Цвет
                     ColorData colorData = null;
                     while (true) {
@@ -111,9 +144,7 @@ public class Main {
                             System.out.println("Цвет успешно установлен.");
                             break;
                         } else {
-                            System.out.println("Неизвестный цвет. Попробуйте выбрать из списка:");
-                            System.out.printf("Доступные цвета: %s\n", String.join(", ", ColorData.getNames()));
-                            System.out.print("Повторите ввод цвета: ");
+                            System.out.println("Неизвестный цвет. Попробуйте выбрать из списка");
                         }
                     }
 
