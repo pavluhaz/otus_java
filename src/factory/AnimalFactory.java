@@ -1,8 +1,8 @@
 package factory;
 
 import animals.AbsAnimal;
-import animals.Pets.Cat;
-import animals.Pets.Dog;
+import animals.pets.Cat;
+import animals.pets.Dog;
 import animals.birds.Duck;
 import data.AnimalTypeData;
 import data.ColorData;

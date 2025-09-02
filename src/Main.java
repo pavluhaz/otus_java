@@ -16,7 +16,6 @@ public class Main {
 
     public static void main(String... args) {
         List<AbsAnimal> animals = new ArrayList<>(); // создаем коллекцию животных
-
         Scanner scanner = new Scanner(System.in); // устройство ввода
 
         while (true) { // бесконечный цикл
